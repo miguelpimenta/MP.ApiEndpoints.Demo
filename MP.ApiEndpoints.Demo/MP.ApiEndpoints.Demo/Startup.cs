@@ -1,47 +1,49 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MP.ApiEndpoints.Demo.Core;
+using MP.ApiEndpoints.Demo.Infrastructure;
 
 namespace MP.ApiEndpoints.Demo
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
+        public ILifetimeScope AutofacContainer { get; private set; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MP.ApiEndpoints.Demo", Version = "v1" });
+                //c.EnableFeatureFilter();
+                c.EnableAnnotations();
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            //! Autofac container
+            builder.RegisterModule(new CoreModule());
+            builder.RegisterModule(new InfrastructureModule(Configuration));
+        }
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MP.ApiEndpoints.Demo v1"));
             }
 
             app.UseHttpsRedirection();
@@ -49,6 +51,9 @@ namespace MP.ApiEndpoints.Demo
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MP.ApiEndpoints.Demo v1"));
 
             app.UseEndpoints(endpoints =>
             {
