@@ -27,10 +27,10 @@ namespace MP.ApiEndpoints.Demo.Endpoints.PersonEndpoints
 
         [HttpDelete("/person/{Id}")]
         [SwaggerOperation(
-            Summary = "Deletes an Person",
-            Description = "Deletes an Person",
+            Summary = "Delete Person",
+            Description = "Delete Person",
             OperationId = "Person.Delete",
-            Tags = new[] { "PersonEndpoint" })
+            Tags = new[] { "Person" })
         ]
         public override async Task<ActionResult> HandleAsync(
             [FromRoute] DeletePersonRequest request,

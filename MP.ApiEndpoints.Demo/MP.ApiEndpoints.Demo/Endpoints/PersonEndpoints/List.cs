@@ -29,12 +29,12 @@ namespace MP.ApiEndpoints.Demo.Endpoints.PersonEndpoints
             this.repository = repository;
         }
 
-        [HttpGet("/persons")]
+        [HttpGet("/person")]
         [SwaggerOperation(
-            Summary = "List all Persons",
-            Description = "List all Persons",
+            Summary = "List Persons",
+            Description = "List Persons",
             OperationId = "Person.List",
-            Tags = new[] { "PersonEndpoint" })
+            Tags = new[] { "Person" })
         ]
         public override async Task<ActionResult<IList<PersonListResult>>> HandleAsync(
 

@@ -16,8 +16,8 @@ namespace MP.ApiEndpoints.Demo.Endpoints.PersonEndpoints
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     public class Create : BaseAsyncEndpoint
-        .WithRequest<CreatePersonCommand>
-        .WithResponse<CreatePersonResult>
+            .WithRequest<CreatePersonCommand>
+            .WithResponse<CreatePersonResult>
     {
         private readonly IRepository<Person> _repository;
 

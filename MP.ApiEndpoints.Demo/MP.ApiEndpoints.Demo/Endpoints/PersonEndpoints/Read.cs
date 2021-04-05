@@ -30,10 +30,10 @@ namespace MP.ApiEndpoints.Demo.Endpoints.PersonEndpoints
 
         [HttpGet("/person/{id}")]
         [SwaggerOperation(
-            Summary = "Get Person by id",
-            Description = "Get Person by id",
+            Summary = "Get Person by Id",
+            Description = "Get Person by Id",
             OperationId = "Person.Read",
-            Tags = new[] { "PersonEndpoint" })
+            Tags = new[] { "Person" })
         ]
         public override async Task<ActionResult<PersonResult>> HandleAsync(
             string id,
