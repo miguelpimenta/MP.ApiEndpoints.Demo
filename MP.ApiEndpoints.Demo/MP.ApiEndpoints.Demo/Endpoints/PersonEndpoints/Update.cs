@@ -29,8 +29,8 @@ namespace MP.ApiEndpoints.Demo.Endpoints.PersonEndpoints
 
         [HttpPut("/person")]
         [SwaggerOperation(
-            Summary = "Update existing Person",
-            Description = "Update existing Person",
+            Summary = "Update Person",
+            Description = "Update Person",
             OperationId = "Person.Update",
             Tags = new[] { "Person" })
         ]

@@ -29,10 +29,10 @@ namespace MP.ApiEndpoints.Demo.Endpoints.PersonEndpoints
 
         [HttpPost("/person")]
         [SwaggerOperation(
-            Summary = "Creates a new Person",
-            Description = "Creates a new Person",
+            Summary = "Create  Person",
+            Description = "Create Person",
             OperationId = "Person.Create",
-            Tags = new[] { "PersonEndpoint" })
+            Tags = new[] { "Person" })
         ]
         public override async Task<ActionResult<CreatePersonResult>> HandleAsync(
             [FromBody] CreatePersonCommand request,

@@ -10,7 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace MP.ApiEndpoints.Demo.Endpoints.TestEndpoints
 {
-    public class Create : CreateBase<CreatePersonCommand, CreatePersonResult, Person>
+    public class Create : CreateBase<CreatePersonRequest, CreatePersonResponse, Person>
     {
         public Create(
             IRepository<Person> repository) : base(repository)
@@ -24,17 +24,17 @@ namespace MP.ApiEndpoints.Demo.Endpoints.TestEndpoints
             OperationId = "Test.Create",
             Tags = new[] { "Test" })
         ]
-        public override async Task<ActionResult<CreatePersonResult>> HandleAsync(
-            CreatePersonCommand request,
+        public override async Task<ActionResult<CreatePersonResponse>> HandleAsync(
+            CreatePersonRequest request,
             CancellationToken cancellationToken = default)
         {
-            CreatePersonResult result = await DoTheWork(request, cancellationToken)
+            CreatePersonResponse result = await DoTheWork(request, cancellationToken)
                 .ConfigureAwait(false);
             return Ok(result);
         }
     }
 
-    public class CreatePersonCommand : RequestBase
+    public class CreatePersonRequest : RequestBase
     {
         [Required]
         public string Name { get; set; }
@@ -43,7 +43,7 @@ namespace MP.ApiEndpoints.Demo.Endpoints.TestEndpoints
         public DateTime BirthDate { get; set; }
     }
 
-    public class CreatePersonResult : ResponseBase
+    public class CreatePersonResponse : ResponseBase
     {
         public Guid Id { get; set; }
     }
