@@ -48,8 +48,7 @@ namespace MP.ApiEndpoints.Demo.Endpoints.Base
                 .CreateAsync(entityToCreate, cancellationToken)
                 .ConfigureAwait(false);
 
-            var result = entityToCreate.Adapt<TResponse>();
-            return result;
+            return entityToCreate.Adapt<TResponse>();
         }
     }
 
