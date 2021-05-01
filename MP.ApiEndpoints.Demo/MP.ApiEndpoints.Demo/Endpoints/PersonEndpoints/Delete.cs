@@ -14,6 +14,7 @@ namespace MP.ApiEndpoints.Demo.Endpoints.PersonEndpoints
     [ProducesResponseType((int)HttpStatusCode.OK)]
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [Route(Routes.Person)]
     public class Delete : BaseAsyncEndpoint
         .WithRequest<DeletePersonRequest>
         .WithoutResponse

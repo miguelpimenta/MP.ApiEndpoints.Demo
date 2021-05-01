@@ -6,6 +6,7 @@ using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using MP.ApiEndpoints.Demo.Core.Application.Contracts;
 using MP.ApiEndpoints.Demo.Core.Domain.Common;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace MP.ApiEndpoints.Demo.Endpoints.Base
 {
@@ -21,6 +22,7 @@ namespace MP.ApiEndpoints.Demo.Endpoints.Base
         where TResponse : ResponseBase
         where TEntity : AuditableEntity
     {
+        
         private readonly IRepository<TEntity> _repository;
 
         protected CreateBase(
@@ -29,26 +31,25 @@ namespace MP.ApiEndpoints.Demo.Endpoints.Base
             _repository = repository;
         }
 
+        [HttpPost]
+        [SwaggerOperation(
+            Summary = "Create",
+            Description = "Create",
+            Tags = new[] { "Create" })
+        ]
         public override async Task<ActionResult<TResponse>> HandleAsync(
             TRequest request,
             CancellationToken cancellationToken = default)
         {
-            TResponse result = await DoTheWork(request, cancellationToken)
-                .ConfigureAwait(false);
-            return Ok(result);
-        }
-
-        protected async Task<TResponse> DoTheWork(
-            TRequest request,
-            CancellationToken cancellationToken)
-        {
             var entityToCreate = request.Adapt<TEntity>();
-
+            
             await _repository
                 .CreateAsync(entityToCreate, cancellationToken)
                 .ConfigureAwait(false);
-
-            return entityToCreate.Adapt<TResponse>();
+            
+            var result = entityToCreate.Adapt<TResponse>();
+            
+            return Ok(result);
         }
     }
 

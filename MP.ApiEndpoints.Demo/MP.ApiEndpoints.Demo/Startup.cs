@@ -14,7 +14,7 @@ namespace MP.ApiEndpoints.Demo
     {
         public IConfiguration Configuration { get; }
 
-        public ILifetimeScope AutofacContainer { get; private set; }
+        //public ILifetimeScope AutofacContainer { get; }
 
         public Startup(IConfiguration configuration)
         {
@@ -24,9 +24,25 @@ namespace MP.ApiEndpoints.Demo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            //services.AddControllers()
+            //    // utf8json
+            //    .AddMvcOptions(option =>
+            //    {
+            //        option.OutputFormatters.Clear();
+            //        option.OutputFormatters.Add(
+            //            new Utf8JsonOutputFormatter(StandardResolver.Default));
+            //        option.InputFormatters.Clear();
+            //        option.InputFormatters.Add(
+            //            new Utf8JsonInputFormatter());
+            //    });
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MP.ApiEndpoints.Demo", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "MP.ApiEndpoints.Demo",
+                    Version = "v1"
+                });
                 //c.EnableFeatureFilter();
                 c.EnableAnnotations();
             });
@@ -39,7 +55,9 @@ namespace MP.ApiEndpoints.Demo
             builder.RegisterModule(new InfrastructureModule(Configuration));
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -53,7 +71,8 @@ namespace MP.ApiEndpoints.Demo
             app.UseAuthorization();
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MP.ApiEndpoints.Demo v1"));
+            app.UseSwaggerUI(c =>
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MP.ApiEndpoints.Demo v1"));
 
             app.UseEndpoints(endpoints =>
             {

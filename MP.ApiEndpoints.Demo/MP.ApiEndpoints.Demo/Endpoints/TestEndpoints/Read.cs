@@ -7,11 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace MP.ApiEndpoints.Demo.Endpoints.TestEndpoints
 {
-    [Consumes("Application/json")]
-    [Produces("Application/json")]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
-    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [Route(Routes.Test)]
     public class Read : BaseAsyncEndpoint
         .WithoutRequest
         .WithResponse<string>
@@ -27,6 +23,10 @@ namespace MP.ApiEndpoints.Demo.Endpoints.TestEndpoints
             OperationId = "Test.Read",
             Tags = new[] { "Test" })
         ]
+        [Consumes("Application/json")]
+        [Produces("Application/json")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesErrorResponseType(typeof(NotFoundResult))]
         public override async Task<ActionResult<string>> HandleAsync(
             CancellationToken cancellationToken = default)
         {

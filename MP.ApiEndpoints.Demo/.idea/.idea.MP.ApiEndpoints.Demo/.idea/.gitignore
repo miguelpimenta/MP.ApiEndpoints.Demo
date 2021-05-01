@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/projectSettingsUpdater.xml
+/modules.xml
+/.idea.MP.ApiEndpoints.Demo.iml
+# Datasource local storage ignored files
+/../../../../../../../../:\Development\Public\MP.ApiEndpoints.Demo\MP.ApiEndpoints.Demo\.idea\.idea.MP.ApiEndpoints.Demo\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
